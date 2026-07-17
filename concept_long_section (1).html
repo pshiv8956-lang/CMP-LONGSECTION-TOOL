@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Long Section — Urban Water Mains</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--surface2:#F0F2F6;
+  --border:#D9D9D7;--border-mid:#C0C4CC;
+  --cmp-red:#E31B23;--dark-blue:#182C69;--blue:#527FC0;--teal:#4CC2C5;
+  --dark-green:#377731;--light-green:#C3CE94;--forest:#798C6C;
+  --coal:#3A3A3A;--cool-grey:#D9D9D7;
+  --accent:var(--dark-blue);--accent2:var(--blue);--accent3:var(--teal);
+  --warn:#f5a623;--danger:var(--cmp-red);
+  --text:var(--coal);--muted:#6B7280;
+  --mono:'IBM Plex Mono',monospace;--sans:'Nunito Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;min-height:100vh;}
+header{background:var(--dark-blue);border-bottom:3px solid var(--cmp-red);padding:0 20px;display:flex;align-items:stretch;gap:0;height:52px;}
+.header-logo-block{display:flex;align-items:center;gap:10px;padding-right:18px;border-right:1px solid rgba(255,255,255,0.15);margin-right:16px;}
+.header-text{display:flex;flex-direction:column;justify-content:center;gap:1px;}
+header h1{font-size:13px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:.01em;}
+header p{font-size:10px;color:rgba(255,255,255,0.45);font-family:var(--mono);}
+.badge{margin-left:auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--teal);font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:2px;letter-spacing:.06em;align-self:center;}
+.layout{display:grid;grid-template-columns:290px 1fr;height:calc(100vh - 52px);}
+.left-panel{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;}
+.ps{border-bottom:1px solid var(--border);padding:13px 14px;}
+.ps h3{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-blue);margin-bottom:9px;padding-bottom:5px;border-bottom:2px solid var(--teal);display:inline-block;}
+.field{margin-bottom:8px;}
+.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:3px;font-weight:600;}
+.field input,.field select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--coal);font-family:var(--mono);font-size:11px;padding:5px 8px;border-radius:2px;outline:none;transition:border-color .15s;}
+.field input:focus,.field select:focus{border-color:var(--dark-blue);box-shadow:0 0 0 2px rgba(24,44,105,0.1);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.unit{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--coal);font-family:var(--mono);font-size:10px;padding:7px;border-radius:2px;resize:vertical;outline:none;line-height:1.6;min-height:150px;}
+textarea:focus{border-color:var(--dark-blue);}
+.btn-p{width:100%;background:var(--dark-blue);color:#fff;font-family:var(--sans);font-weight:700;font-size:12px;padding:10px;border:none;border-radius:2px;cursor:pointer;transition:background .15s,transform .1s;letter-spacing:.04em;text-transform:uppercase;}
+.btn-p:hover{background:var(--blue);}
+.btn-p:active{transform:scale(.98);}
+.btn-p:disabled{background:var(--cool-grey);color:var(--muted);cursor:not-allowed;}
+.btn-s{background:var(--surface2);color:var(--coal);border:1px solid var(--border);font-family:var(--sans);font-size:10px;font-weight:600;padding:5px 10px;border-radius:2px;cursor:pointer;transition:all .12s;}
+.btn-s:hover{border-color:var(--dark-blue);color:var(--dark-blue);}
+.right-panel{display:flex;flex-direction:column;overflow:hidden;}
+.tabs{display:flex;background:var(--surface);border-bottom:2px solid var(--border);padding:0 14px;gap:0;flex-shrink:0;}
+.tab{padding:12px 16px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;text-transform:uppercase;letter-spacing:.06em;}
+.tab:hover{color:var(--dark-blue);}
+.tab.active{color:var(--dark-blue);border-bottom-color:var(--cmp-red);}
+.tab-content{flex:1;overflow:hidden;}
+.tab-pane{display:none;height:100%;overflow-y:auto;padding:14px;}
+.tab-pane.active{display:block;}
+#profile-pane{padding:0;overflow:hidden;}
+#profile-pane.active{display:flex;flex-direction:column;}
+.chart-top{flex-shrink:0;background:var(--surface);border-bottom:1px solid var(--border);}
+.chart-legend-row{display:flex;gap:10px;align-items:center;padding:6px 14px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface2);}
+.li{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--muted);}
+.ld{width:16px;height:3px;border-radius:1px;}
+.divider-v{width:1px;height:12px;background:var(--border);flex-shrink:0;}
+.chart-toggles{display:flex;gap:5px;align-items:center;padding:6px 14px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+.toggle-label{font-size:9px;color:var(--dark-blue);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0;}
+.scen-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:2px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:10px;font-family:var(--sans);font-weight:600;transition:all .12s;user-select:none;color:var(--muted);}
+.scen-btn.active{background:var(--surface);color:var(--coal);border-color:var(--dark-blue);box-shadow:0 1px 4px rgba(24,44,105,0.12);}
+.scen-btn .sw{width:10px;height:10px;border-radius:1px;flex-shrink:0;}
+.chart-desc-row{padding:5px 14px 6px;font-size:10px;color:var(--muted);line-height:1.4;min-height:26px;background:var(--surface);}
+.chart-desc-row strong{color:var(--dark-blue);margin-right:4px;font-weight:700;}
+#chart-container{flex:1;position:relative;overflow:hidden;}
+canvas{display:block;}
+.rh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.kc{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:11px 13px;border-left:3px solid var(--blue);}
+.kc.best{border-left-color:var(--dark-blue);}
+.kl{font-size:9px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;font-weight:700;}
+.kv{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--coal);}
+.kv.g{color:var(--dark-blue);}.kv.a{color:var(--warn);}
+.ks{font-size:9px;color:var(--muted);margin-top:2px;}
+.strat-card{background:var(--surface);border:1px solid var(--border);border-radius:2px;overflow:hidden;cursor:pointer;transition:border-color .12s,box-shadow .12s;margin-bottom:8px;}
+.strat-card:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(24,44,105,0.08);}
+.strat-card.active-card{border-color:var(--dark-blue);box-shadow:0 2px 12px rgba(24,44,105,0.15);}
+.strat-head{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.strat-swatch{width:4px;height:32px;border-radius:1px;flex-shrink:0;}
+.strat-name{font-size:12px;font-weight:700;flex:1;color:var(--coal);}
+.strat-cost{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--coal);}
+.strat-tag{font-size:9px;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+.tag-best{background:var(--dark-blue);color:#fff;}
+.tag-alt{background:var(--surface2);border:1px solid var(--border);color:var(--muted);}
+.strat-stats{padding:8px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;border-bottom:1px solid var(--border);}
+.ss-l{font-size:9px;color:var(--muted);margin-bottom:1px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.ss-v{font-family:var(--mono);font-size:11px;color:var(--coal);}
+.strat-desc{padding:7px 12px 9px;font-size:10px;color:var(--muted);line-height:1.5;}
+.seg-table{width:100%;border-collapse:collapse;font-size:10px;}
+.seg-table th{background:var(--dark-blue);color:#fff;font-size:9px;letter-spacing:.07em;text-transform:uppercase;text-align:left;padding:6px 8px;border-bottom:2px solid var(--cmp-red);position:sticky;top:0;z-index:1;font-weight:700;}
+.seg-table td{padding:5px 8px;border-bottom:1px solid var(--border);font-family:var(--mono);vertical-align:middle;color:var(--coal);}
+.seg-table tr:nth-child(even) td{background:var(--surface2);}
+.seg-table tr:hover td{background:rgba(24,44,105,0.05);}
+.seg-table tfoot td{background:var(--surface2);font-weight:600;border-top:2px solid var(--dark-blue);}
+.gp{display:inline-block;padding:1px 5px;border-radius:2px;font-size:9px;font-weight:700;font-family:var(--mono);}
+.g-rise{background:#e8f0fa;color:#182C69;}
+.g-fall{background:#e0f5f5;color:#0e7a7d;}
+.g-av{background:#e8f0fa;color:#182C69;}
+.g-sc{background:#fef6e0;color:#92600a;}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:9px;color:var(--muted);text-align:center;}
+.empty-icon{font-size:34px;opacity:.25;}
+.empty-state h3{font-size:13px;color:var(--coal);font-weight:700;}
+.empty-state p{font-size:11px;max-width:260px;line-height:1.5;}
+.progress-wrap{background:var(--surface2);border-radius:2px;height:3px;margin-top:6px;overflow:hidden;display:none;}
+.progress-bar{height:100%;background:var(--dark-blue);width:0%;transition:width .15s;}
+.info-box{background:rgba(76,194,197,0.07);border:1px solid rgba(76,194,197,0.3);border-left:3px solid var(--teal);border-radius:2px;padding:8px 10px;font-size:10px;line-height:1.5;color:var(--muted);margin-bottom:9px;}
+.info-box strong{color:var(--coal);}
+.warn-box{background:rgba(227,27,35,0.05);border:1px solid rgba(227,27,35,0.2);border-left:3px solid var(--cmp-red);border-radius:2px;padding:8px 10px;font-size:10px;line-height:1.5;color:#b91c1c;margin-bottom:9px;}
+.export-row{display:flex;gap:7px;margin-bottom:12px;align-items:center;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+.svc-row{display:grid;grid-template-columns:1fr 1fr 1.4fr 24px;gap:4px;margin-bottom:4px;align-items:end;}
+.svc-row input,.svc-row select{background:var(--surface2);border:1px solid var(--border);color:var(--coal);font-family:var(--mono);font-size:10px;padding:4px 6px;border-radius:2px;outline:none;width:100%;}
+.svc-row input:focus,.svc-row select:focus{border-color:var(--dark-blue);}
+.svc-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1;display:flex;align-items:center;justify-content:center;}
+.svc-del:hover{color:var(--cmp-red);}
+.svc-hdr{display:grid;grid-template-columns:1fr 1fr 1.4fr 24px;gap:4px;margin-bottom:3px;}
+.svc-hdr span{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.svc-add-btn{width:100%;background:var(--surface2);border:1px dashed var(--border);color:var(--muted);font-size:10px;font-family:var(--sans);padding:5px;border-radius:2px;cursor:pointer;margin-top:4px;transition:all .12s;}
+.svc-add-btn:hover{border-color:var(--teal);color:var(--teal);}
+.auto-btn{flex:1;background:var(--teal);color:#fff;border:none;border-radius:2px;font-family:var(--sans);font-size:10px;font-weight:700;padding:7px 8px;cursor:pointer;transition:background .12s;letter-spacing:.02em;}
+.auto-btn:hover{background:var(--dark-blue);}
+.auto-btn-clear{background:var(--surface2);color:var(--muted);border:1px solid var(--border);}
+.auto-btn-clear:hover{background:var(--surface2);border-color:var(--cmp-red);color:var(--cmp-red);}
+.rule-ok{background:#e6f4e6;color:#377731;border:1px solid #c3e6c3;}
+.rule-warn{background:#fef6e0;color:#92600a;border:1px solid #fde8b0;}
+.rule-fail{background:#fde8e8;color:#b91c1c;border:1px solid #fbc5c5;}
+.rule-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;margin:2px;}
+.tip-wrap{display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle;}
+.tip-btn{width:14px;height:14px;border-radius:50%;background:var(--blue);color:#fff;font-size:9px;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0;font-family:var(--sans);}
+.tip-btn:hover{background:var(--dark-blue);}
+#tip-global{display:none;position:fixed;background:var(--dark-blue);color:#fff;font-size:10px;line-height:1.5;font-family:var(--sans);font-weight:400;padding:9px 12px;border-radius:3px;max-width:240px;z-index:99999;box-shadow:0 4px 20px rgba(24,44,105,0.3);pointer-events:none;}
+#tip-global::before{content:'';position:absolute;right:100%;top:14px;border:5px solid transparent;border-right-color:var(--dark-blue);}
+.label-tip{display:flex;align-items:center;gap:0;margin-bottom:3px;}
+.label-tip span{font-size:10px;color:var(--muted);font-weight:600;}
+</style>
+</head>
+<body>
+<div id="tip-global"></div>
+<header>
+  <div class="header-logo-block">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 406" height="28" style="display:block;fill:#ffffff;">
+      <path d="M284.18,298.97h-130.72C68.84,298.97,0,231.93,0,149.53S68.84.1,153.46.1h130.72c12.26,0,22.2,9.68,22.2,21.61s-9.94,21.62-22.2,21.62h-130.72c-60.14,0-109.06,47.64-109.06,106.2s48.92,106.21,109.06,106.21h130.72c12.26,0,22.2,9.68,22.2,21.61s-9.94,21.62-22.2,21.62M903.46,185.52c52.5,0,95.2-41.59,95.2-92.71S955.96.1,903.46.1h-185.6c-12.26,0-22.21,9.68-22.21,21.61s9.94,21.62,22.21,21.62h185.6c28.02,0,50.8,22.19,50.8,49.47s-22.79,49.47-50.8,49.47h-185.6c-12.26,0-22.21,9.68-22.21,21.61s9.94,21.62,22.21,21.62h185.6M370.85,298.97c12.26,0,22.2-9.68,22.2-21.62V21.71c0-11.93-9.94-21.61-22.2-21.61s-22.2,9.68-22.2,21.61v255.64c0,11.94,9.94,21.62,22.2,21.62M501.52,298.97c12.26,0,22.2-9.68,22.2-21.62V21.71c0-11.93-9.94-21.61-22.2-21.61s-22.2,9.68-22.2,21.61v255.64c0,11.94,9.94,21.62,22.2,21.62M632.2,298.97c12.26,0,22.2-9.68,22.2-21.62V21.71c0-11.93-9.94-21.61-22.2-21.61s-22.2,9.68-22.2,21.61v255.64c0,11.94,9.94,21.62,22.2,21.62"/>
+    </svg>
+  </div>
+  <div class="header-text">
+    <h1>Concept Long Section — Urban Water Mains</h1>
+    <p>Vertical alignment strategies · air valves &amp; scours · WSAA clearances</p>
+  </div>
+  <div class="badge">CONCEPT LS v1</div>
+</header>
+
+<div class="layout">
+<div class="left-panel">
+
+  <div class="ps">
+    <h3>Pipe Parameters</h3>
+    <div class="fr">
+      <div class="field"><label>DN (mm)</label><input type="number" id="dn" value="300"></div>
+      <div class="field"><label>Pipe OD (m)</label><input type="number" id="pipeOD" value="0.324" step="0.001"></div>
+    </div>
+    <div class="fr">
+      <div class="field"><label>Min Cover (m)</label><input type="number" id="minCover" value="0.75" step="0.05"></div>
+      <div class="field"><label>Bedding (m)</label><input type="number" id="bedding" value="0.15" step="0.05"></div>
+    </div>
+    <div class="field"><label>Trench Width (m)</label><input type="number" id="trenchW" value="0.80" step="0.05"></div>
+  </div>
+
+  <div class="ps">
+    <h3>Cost Rates</h3>
+    <div class="fr">
+      <div class="field"><label>Excavation ($/m³)</label><input type="number" id="rateExc" value="85"></div>
+      <div class="field"><label>Backfill ($/m³)</label><input type="number" id="rateBackfill" value="55"></div>
+    </div>
+    <div class="field"><label>Pipe Supply &amp; Lay ($/m LM)</label><input type="number" id="ratePipe" value="210"></div>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Air Valve ($/ea)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Installed cost of one air valve assembly at a pipe high point — valve, offtake tee, isolation valve, pit or cabinet, and surface reinstatement. Typical urban DN80 AV on a DN300 main: $12k–$25k installed.">i</button></div>
+        </div>
+        <input type="number" id="rateAV" value="18000">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>Scour Valve ($/ea)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Installed cost of one scour/drain assembly at a pipe low point — scour tee, valve, pit and discharge arrangement. Typical urban scour: $8k–$18k installed depending on discharge point.">i</button></div>
+        </div>
+        <input type="number" id="rateSC" value="12000">
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <h3>Start &amp; End Constraints</h3>
+    <div class="info-box" style="margin-bottom:8px;">Set fixed invert levels at the pipe start/end (e.g. connection to existing main or structure). Leave blank to let the generator choose. Use <strong>Auto-fill</strong> to populate from your profile data.</div>
+    <div style="display:flex;gap:6px;margin-bottom:10px;">
+      <button class="auto-btn" onclick="autoFillConstraints()" title="Reads your profile data and fills Start/End chainage and shallowest inverts">⟳ Auto-fill from profile</button>
+      <button class="auto-btn auto-btn-clear" onclick="clearConstraints()">✕ Clear all</button>
+    </div>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Start Ch. (m)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Chainage at the start of the main. Auto-fill sets this to the first point in your survey data.">i</button></div>
+        </div>
+        <input type="number" id="startCh" placeholder="auto" step="0.01">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>End Ch. (m)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Chainage at the end of the main. Auto-fill sets this to the last point in your survey data.">i</button></div>
+        </div>
+        <input type="number" id="endCh" placeholder="auto" step="0.01">
+      </div>
+    </div>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Start Invert RL (m AHD)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Fixed pipe invert at the start — typically a connection to an existing main or offtake. Leave blank for the generator to choose the shallowest valid level.">i</button></div>
+        </div>
+        <input type="number" id="startInvert" placeholder="leave blank = auto" step="0.001">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>End Invert RL (m AHD)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Fixed pipe invert at the end — typically a tie-in to an existing main or structure. Leave blank for the generator to choose freely.">i</button></div>
+        </div>
+        <input type="number" id="endInvert" placeholder="leave blank = auto" step="0.001">
+      </div>
+    </div>
+    <div id="autoFillStatus" style="font-size:10px;color:var(--muted);margin-top:5px;min-height:14px;"></div>
+  </div>
+
+  <div class="ps">
+    <h3>Design Rules</h3>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Min rising grade (%)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Minimum grade on rising legs so air migrates towards the next air valve. Convention for water mains is 1:500 = 0.2% minimum. Dead-flat pipe traps air and is not permitted.">i</button></div>
+        </div>
+        <input type="number" id="minRise" value="0.2" step="0.05">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>Min falling grade (%)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Minimum grade on falling legs so air travels back up to the air valve behind it rather than being dragged along by the flow. Convention is steeper than the rising minimum — typically 1:300 ≈ 0.33%.">i</button></div>
+        </div>
+        <input type="number" id="minFall" value="0.33" step="0.05">
+      </div>
+    </div>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Min leg length (m)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Minimum length of a constant-grade leg between two grade breaks. Prevents unrealistically short legs. 30–60 m is typical for concept design of urban mains.">i</button></div>
+        </div>
+        <input type="number" id="minSegLen" value="40" step="5">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>Max leg length (m)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Maximum length of a single constant-grade leg. Longer legs mean a simpler drawing with fewer grade breaks. 300–500 m is typical for flat urban alignments.">i</button></div>
+        </div>
+        <input type="number" id="maxSegLen" value="400" step="10">
+      </div>
+    </div>
+    <div class="fr">
+      <div class="field">
+        <div class="label-tip"><span>Max cover (m)</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Maximum depth to invert before trench shoring/support design is required. Segments exceeding this are flagged. Typical soft limit for open-cut urban mains is 2.5–3.5 m.">i</button></div>
+        </div>
+        <input type="number" id="maxCover" value="3.0" step="0.25">
+      </div>
+      <div class="field">
+        <div class="label-tip"><span>Survey smoothing</span>
+          <div class="tip-wrap"><button class="tip-btn" data-tip="Median filter to remove spike points from raw survey data. Light is recommended for most data. Off if your data is already clean.">i</button></div>
+        </div>
+        <select id="smoothing">
+          <option value="0">Off</option>
+          <option value="1" selected>Light (1 pass)</option>
+          <option value="2">Medium (2 passes)</option>
+          <option value="3">Heavy (3 passes)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <h3>Surface Profile — Chainage &amp; RL</h3>
+    <div class="info-box">Paste <strong>chainage, RL</strong> — one row per point.</div>
+    <textarea id="profileInput" placeholder="0, 52.400&#10;10, 52.310&#10;..."></textarea>
+    <div style="margin-top:6px;display:flex;gap:5px;">
+      <button class="btn-s" style="background:var(--teal);color:#fff;border-color:var(--teal);font-weight:700;" onclick="loadDemoScenario()">▶ Demo scenario</button>
+      <button class="btn-s" onclick="loadDemo()">⟳ Terrain only</button>
+      <button class="btn-s" onclick="clearProfile()">Clear</button>
+    </div>
+  </div>
+
+  <div class="ps">
+    <h3>Existing Services</h3>
+    <div class="info-box" style="margin-bottom:8px;">Add existing services crossing the alignment. Plotted on the long section and checked against WSAA Table 5.5 clearances.</div>
+    <div class="svc-hdr">
+      <span>Chainage (m)</span>
+      <span>Service IL (m AHD)</span>
+      <span>Type (WSAA 5.5)</span>
+      <span></span>
+    </div>
+    <div id="svcRows"></div>
+    <button class="svc-add-btn" onclick="addService()">+ Add service crossing</button>
+    <div style="margin-top:5px;">
+      <button class="btn-s" onclick="clearServices()">Clear all</button>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div id="runStatus" style="font-size:10px;color:var(--muted);margin-bottom:6px;text-align:center;min-height:14px;"></div>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <button class="btn-p" id="runBtn" onclick="runAll()" style="margin-top:8px;">▶  Generate Concept Sections</button>
+  </div>
+
+</div><!-- /left-panel -->
+
+<div class="right-panel">
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('profile-pane',this)">Long Section</div>
+    <div class="tab" onclick="switchTab('scenarios-pane',this)">Strategies</div>
+    <div class="tab" onclick="switchTab('segments-pane',this)">Legs &amp; Fittings</div>
+  </div>
+  <div class="tab-content">
+
+    <!-- LONG SECTION -->
+    <div class="tab-pane active" id="profile-pane">
+      <div class="chart-top">
+        <div class="chart-legend-row">
+          <div class="li"><div class="ld" style="background:#527FC0;"></div>Surface</div>
+          <div class="li"><div class="ld" style="background:#f5a623;border:none;border-top:2px dashed #f5a623;height:0;"></div>Cover envelope</div>
+          <div class="li"><div class="ld" style="background:#182C69;"></div>Pipe invert</div>
+          <div class="divider-v"></div>
+          <div class="li">
+            <svg width="16" height="20" viewBox="0 0 16 20"><line x1="12" y1="19" x2="12" y2="3" stroke="#182C69" stroke-width="1.5"/><path d="M12 1 L12 11 L2 6 Z" fill="#182C69"/></svg>
+            &nbsp;Air valve (high pt)
+          </div>
+          <div class="li">
+            <svg width="14" height="20" viewBox="0 0 14 20"><line x1="7" y1="19" x2="7" y2="11" stroke="#182C69" stroke-width="1.5"/><circle cx="7" cy="6" r="5" fill="#fff" stroke="#182C69" stroke-width="1.5"/><line x1="3.5" y1="2.5" x2="10.5" y2="9.5" stroke="#182C69" stroke-width="1.3"/><line x1="10.5" y1="2.5" x2="3.5" y2="9.5" stroke="#182C69" stroke-width="1.3"/></svg>
+            &nbsp;Scour (low pt)
+          </div>
+          <div class="divider-v"></div>
+          <div class="li"><div style="width:10px;height:10px;border-radius:50%;background:#E31B23;border:2px solid #fff;box-shadow:0 0 0 1px #E31B23;display:inline-block;"></div>&nbsp;Service</div>
+          <div style="margin-left:auto;font-size:10px;color:var(--muted);" id="chartInfo"></div>
+        </div>
+        <div class="chart-toggles" id="chartToggles">
+          <span class="toggle-label">Strategy:</span>
+        </div>
+        <div class="chart-desc-row" id="chartDescRow">Select a strategy above to view its concept long section.</div>
+      </div>
+      <div id="chart-container">
+        <div class="empty-state" id="chartEmpty">
+          <div class="empty-icon">〰</div>
+          <h3>No data yet</h3>
+          <p>Paste your survey data on the left and click Generate Concept Sections.</p>
+        </div>
+        <canvas id="profileCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- STRATEGIES -->
+    <div class="tab-pane" id="scenarios-pane">
+      <div class="empty-state" id="scenEmpty">
+        <div class="empty-icon">📊</div>
+        <h3>No results yet</h3>
+        <p>Generate concept sections to compare vertical alignment strategies.</p>
+      </div>
+      <div id="scenarioContent" style="display:none;">
+        <div class="rh" id="kpiRow"></div>
+        <div id="warnBox"></div>
+        <div id="strategyGrid"></div>
+      </div>
+    </div>
+
+    <!-- LEGS & FITTINGS -->
+    <div class="tab-pane" id="segments-pane">
+      <div class="empty-state" id="segEmpty">
+        <div class="empty-icon">📋</div>
+        <h3>Select a strategy</h3>
+        <p>Click any strategy card to see the leg schedule and fitting list.</p>
+      </div>
+      <div id="segmentContent" style="display:none;">
+        <div class="export-row">
+          <div id="segTitle" style="font-size:12px;font-weight:600;flex:1;"></div>
+          <button class="btn-s" onclick="exportCSV()">Export CSV</button>
+        </div>
+        <div class="rh" id="segKpiRow"></div>
+        <div id="warnBoxSeg"></div>
+        <table class="seg-table">
+          <thead><tr>
+            <th>#</th><th>Ch Start</th><th>Ch End</th><th>Len</th>
+            <th>Grade</th><th>1 in</th><th>Inv Start</th><th>Inv End</th>
+            <th>Avg Depth</th><th>Max Depth</th><th>Exc+Pipe $</th>
+          </tr></thead>
+          <tbody id="segmentBody"></tbody>
+        </table>
+        <div style="margin-top:14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dark-blue);margin-bottom:6px;">Fittings Schedule</div>
+          <table class="seg-table">
+            <thead><tr><th>#</th><th>Type</th><th>Chainage</th><th>Invert RL</th><th>Cost $</th></tr></thead>
+            <tbody id="fittingBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div><!-- /layout -->
+
+<script>
+// ═══════════════════════════════════════════════
+// CONCEPT LONG SECTION ENGINE
+// Pressure water main — grades rise AND fall.
+// Air valve at every pipe high point (local max).
+// Scour valve at every pipe low point (local min).
+// Fitting costs are part of the strategy comparison.
+// ═══════════════════════════════════════════════
+
+function excCost(len,avgD,tw,rE,rB,rP){
+  return len*tw*avgD*(rE+rB)+len*rP;
+}
+
+// ═══════════════════════════════════════════════
+// PROFILE UTILS
+// ═══════════════════════════════════════════════
+function parseProfile(txt){
+  return txt.trim().split('\n').map(l=>{
+    const p=l.trim().split(/[\t,]+/);
+    return p.length>=2?{ch:+p[0],rl:+p[1]}:null;
+  }).filter(p=>p&&!isNaN(p.ch)&&!isNaN(p.rl)).sort((a,b)=>a.ch-b.ch);
+}
+function smoothProfile(pts,passes){
+  let out=pts.map(p=>({...p}));
+  for(let p=0;p<passes;p++){
+    const nx=out.map(x=>({...x}));
+    for(let i=1;i<out.length-1;i++){
+      const v=[out[i-1].rl,out[i].rl,out[i+1].rl].sort((a,b)=>a-b);
+      nx[i].rl=v[1];
+    }
+    out=nx;
+  }
+  return out;
+}
+function interpRL(profile,ch){
+  if(ch<=profile[0].ch) return profile[0].rl;
+  if(ch>=profile[profile.length-1].ch) return profile[profile.length-1].rl;
+  for(let i=0;i<profile.length-1;i++){
+    if(ch>=profile[i].ch&&ch<=profile[i+1].ch){
+      const t=(ch-profile[i].ch)/(profile[i+1].ch-profile[i].ch);
+      return profile[i].rl+t*(profile[i+1].rl-profile[i].rl);
+    }
+  }
+  return profile[profile.length-1].rl;
+}
+function maxInv(ch, smoothed, offset){
+  return interpRL(smoothed,ch)-offset;
+}
+
+// Break points spaced at least minSegLen apart
+function makeBreakPts(smoothed, minSegLen){
+  const bps=[smoothed[0].ch];
+  let last=smoothed[0].ch;
+  for(let i=1;i<smoothed.length-1;i++){
+    if(smoothed[i].ch-last>=minSegLen){bps.push(smoothed[i].ch);last=smoothed[i].ch;}
+  }
+  if(smoothed[smoothed.length-1].ch-last<minSegLen*0.5&&bps.length>1) bps.pop();
+  bps.push(smoothed[smoothed.length-1].ch);
+  return bps;
+}
+
+// Surface extrema (crests & sags) with prominence filter — for concept legs
+function surfaceExtrema(smoothed, minProm, minSpacing){
+  const ex=[];
+  for(let i=2;i<smoothed.length-2;i++){
+    const a=smoothed[i-1].rl,b=smoothed[i].rl,c=smoothed[i+1].rl;
+    if((b>a&&b>=c)||(b<a&&b<=c)){
+      // prominence check vs neighbourhood
+      let lo=b,hi=b;
+      const span=Math.min(8,i,smoothed.length-1-i);
+      for(let k=i-span;k<=i+span;k++){lo=Math.min(lo,smoothed[k].rl);hi=Math.max(hi,smoothed[k].rl);}
+      if(hi-lo>=minProm) ex.push(smoothed[i].ch);
+    }
+  }
+  // enforce spacing
+  const out=[];
+  for(const ch of ex){
+    if(out.length===0||ch-out[out.length-1]>=minSpacing) out.push(ch);
+  }
+  return out;
+}
+
+// Interior fittings from a path: AV at local max, SC at local min
+function findFittings(path){
+  const fits=[];
+  for(let i=1;i<path.length-1;i++){
+    const gIn=path[i].inv-path[i-1].inv;   // + rising
+    const gOut=path[i+1].inv-path[i].inv;
+    if(gIn>1e-9&&gOut<-1e-9) fits.push({type:'AV',ch:path[i].ch,inv:path[i].inv});
+    if(gIn<-1e-9&&gOut>1e-9) fits.push({type:'SC',ch:path[i].ch,inv:path[i].inv});
+  }
+  return fits;
+}
+
+// ═══════════════════════════════════════════════
+// SERVICE CLEARANCE CONSTRAINTS (WSAA Table 5.5)
+// Each crossing creates a forbidden invert band at its chainage:
+//   pass OVER:  invert >= service IL + vertical clearance   (band.hi)
+//   pass UNDER: pipe crown <= service IL − clearance
+//               → invert <= service IL − clearance − OD     (band.lo)
+// ═══════════════════════════════════════════════
+function buildSvcCons(services, p){
+  const dn=p.dn||300;
+  return services
+    .filter(s=>s.ch!==''&&s.il!==''&&!isNaN(+s.ch)&&!isNaN(+s.il))
+    .map(s=>{
+      const cl=WSAA_SVC[s.type]||WSAA_SVC.water_lte375;
+      const vC=cl.v/1000;
+      return {ch:+s.ch, il:+s.il, type:s.type,
+        hi:+s.il+vC, lo:+s.il-vC-p.pipeOD};
+    });
+}
+function svcBandAt(ch, p){
+  if(!p.svcCons||!p.svcCons.length) return null;
+  const s=p.svcCons.find(x=>Math.abs(x.ch-ch)<1e-6);
+  return s?{lo:s.lo,hi:s.hi}:null;
+}
+// A straight leg a→b clears every service crossing within it
+function segSvcOk(a, b, p){
+  if(!p.svcCons||!p.svcCons.length) return true;
+  const len=b.ch-a.ch;
+  for(const s of p.svcCons){
+    if(s.ch<a.ch-1e-6||s.ch>b.ch+1e-6) continue;
+    const t=len>0?(s.ch-a.ch)/len:0;
+    const inv=a.inv+(b.inv-a.inv)*t;
+    if(inv>s.lo+1e-6&&inv<s.hi-1e-6) return false;
+  }
+  return true;
+}
+// Merge service chainages into a station list (dropping any station that
+// would create a sliver leg right next to a crossing)
+function addSvcStations(bpChs, p){
+  if(!p.svcCons||!p.svcCons.length) return bpChs;
+  const ends=[bpChs[0],bpChs[bpChs.length-1]];
+  let out=bpChs.filter(ch=>
+    ch===ends[0]||ch===ends[1]||
+    !p.svcCons.some(s=>Math.abs(s.ch-ch)<10));
+  for(const s of p.svcCons){
+    if(s.ch>ends[0]+1&&s.ch<ends[1]-1&&!out.some(c=>Math.abs(c-s.ch)<1e-6)) out.push(s.ch);
+  }
+  return out.sort((a,b)=>a-b);
+}
+
+// ═══════════════════════════════════════════════
+// SEGMENT BUILDER — signed grades (pressure main)
+// ═══════════════════════════════════════════════
+function buildSegments(breakPts, smoothed, p, strict=true){
+  const offset=p.minCover+p.pipeOD+p.bedding;
+  const segs=[];
+  let totalExc=0;
+
+  for(let s=0;s<breakPts.length-1;s++){
+    const a=breakPts[s], b=breakPts[s+1];
+    const len=b.ch-a.ch;
+    if(len<=0) continue;
+    const rise=b.inv-a.inv;            // + rising
+    const grade=(rise/len)*100;        // signed %
+
+    // Grade validity: rising legs >= minRise, falling legs >= minFall magnitude
+    if(strict){
+      if(grade>=0 && grade<p.minRise-1e-9) return null;
+      if(grade<0  && -grade<p.minFall-1e-9) return null;
+    }
+
+    // Service crossing clearance (WSAA Table 5.5) — over or under, never through
+    if(!segSvcOk(a,b,p)) return null;
+
+    // Cover check at all smoothed pts in range
+    let dSum=0,dN=0,maxD=0,coverViolated=false;
+    for(const pt of smoothed){
+      if(pt.ch<a.ch-1e-6||pt.ch>b.ch+1e-6) continue;
+      const t=(pt.ch-a.ch)/len;
+      const invAtPt=a.inv+rise*t;
+      const depth=pt.rl-invAtPt;
+      if(depth<offset-0.001){coverViolated=true;break;}
+      dSum+=depth; dN++;
+      if(depth>maxD) maxD=depth;
+    }
+    if(coverViolated) return null;
+
+    const avgD=dN>0?dSum/dN:offset;
+    const eCost=excCost(len,avgD,p.trenchW,p.rateExc,p.rateBackfill,p.ratePipe);
+    totalExc+=eCost;
+    const deepFlag = maxD > (p.maxCover||3.0);
+
+    segs.push({no:s+1,chStart:a.ch,chEnd:b.ch,len,grade,
+      invStart:a.inv,invEnd:b.inv,avgDepth:avgD,maxDepth:maxD,deepFlag,
+      excCost:eCost});
+  }
+  if(segs.length===0) return null;
+
+  const fits=findFittings(breakPts);
+  const nAV=fits.filter(f=>f.type==='AV').length;
+  const nSC=fits.filter(f=>f.type==='SC').length;
+  const fitCost=nAV*p.rateAV+nSC*p.rateSC;
+  const deepFlags=segs.filter(s=>s.deepFlag).length;
+  const maxDepth=Math.max(...segs.map(s=>s.maxDepth));
+  const avgDepth=segs.reduce((t,s)=>t+s.avgDepth*s.len,0)/segs.reduce((t,s)=>t+s.len,0);
+
+  return {segs,fits,nAV,nSC,fitCost,totalExc,deepFlags,maxDepth,avgDepth,
+    cost:totalExc+fitCost};
+}
+
+// Highest permissible invert at the END of a leg such that the straight
+// leg from (prevCh, prev) clears the cover envelope at every survey point
+function legBound(prevCh, prev, ch, smoothed, offset){
+  let bound=maxInv(ch,smoothed,offset);
+  const len=ch-prevCh;
+  for(const pt of smoothed){
+    if(pt.ch<=prevCh+1e-6||pt.ch>=ch-1e-6) continue;
+    const t=(pt.ch-prevCh)/len;
+    const env=pt.rl-offset;
+    // leg invert at t must be <= env:  prev + (inv-prev)*t <= env
+    const cand=prev+(env-prev)/t;
+    if(cand<bound) bound=cand;
+  }
+  return bound;
+}
+
+// Shallow walk: at each station pick the SHALLOWEST invert that satisfies
+// cover, the grade minimums, and any service clearance band — passing over
+// services where cover allows (minimum dig), diving under where it doesn't.
+function shallowWalk(bpChs, smoothed, p, offset){
+  const bps=[];
+  let prev=null,prevCh=null;
+  for(const ch of bpChs){
+    const band=svcBandAt(ch,p);
+    if(prev===null){
+      let inv=maxInv(ch,smoothed,offset);
+      if(band&&inv>band.lo+1e-9&&inv<band.hi-1e-9)
+        inv=(band.hi<=inv)?band.hi:band.lo;   // clear the band at the start too
+      bps.push({ch,inv});prev=inv;prevCh=ch;continue;
+    }
+    const bound=legBound(prevCh,prev,ch,smoothed,offset);
+    const len=ch-prevCh;
+    const riseCand=prev+(p.minRise/100)*len;
+    const fallCand=prev-(p.minFall/100)*len;
+    // candidate inverts, tried shallowest-first
+    const cands=[bound,riseCand,fallCand];
+    if(band) cands.push(band.hi,band.lo,Math.min(band.lo,fallCand));
+    let inv=null;
+    for(const c of [...new Set(cands)].sort((x,y)=>y-x)){
+      if(c>bound+1e-9) continue;                              // cover
+      if(band&&c>band.lo+1e-9&&c<band.hi-1e-9) continue;      // service band
+      const g=(c-prev)/len*100;
+      if(!(g>=p.minRise-1e-9||g<=-(p.minFall-1e-9))) continue;// grade rules
+      inv=c;break;
+    }
+    if(inv===null){
+      // last resort: steep dive under everything at this station
+      inv=Math.min(bound,fallCand);
+      if(band) inv=Math.min(inv,band.lo);
+    }
+    bps.push({ch,inv});prev=inv;prevCh=ch;
+  }
+  return pruneMinorExtrema(mergeCollinear(bps,smoothed,offset,p),smoothed,p,offset);
+}
+
+// Remove intermediate break points where the grade barely changes —
+// cleaner drawing, no phantom fittings from micro grade breaks.
+// The merged straight leg must still clear the cover envelope.
+function mergeCollinear(bps, smoothed, offset, p, tol=0.03){
+  if(bps.length<3) return bps;
+  const out=[bps[0]];
+  for(let i=1;i<bps.length-1;i++){
+    const a=out[out.length-1], b=bps[i], c=bps[i+1];
+    const g1=(b.inv-a.inv)/(b.ch-a.ch)*100;
+    const g2=(c.inv-b.inv)/(c.ch-b.ch)*100;
+    if(Math.abs(g1-g2)>tol){out.push(b);continue;}
+    if(c.inv>legBound(a.ch,a.inv,c.ch,smoothed,offset)+1e-9){out.push(b);continue;}
+    if(!segSvcOk(a,c,p)) out.push(b);   // merged leg must still clear services
+  }
+  out.push(bps[bps.length-1]);
+  return out;
+}
+
+// Remove insignificant high/low points (prominence below tol) where the two
+// legs can legally merge into one — stops micro terrain bumps each earning
+// an $18k air valve. Merge must still satisfy grade rules and cover.
+function pruneMinorExtrema(bps, smoothed, p, offset, tol=0.15){
+  let changed=true;
+  while(changed&&bps.length>2){
+    changed=false;
+    for(let i=1;i<bps.length-1;i++){
+      const a=bps[i-1],b=bps[i],c=bps[i+1];
+      const gIn=b.inv-a.inv, gOut=c.inv-b.inv;
+      const isMax=gIn>1e-9&&gOut<-1e-9, isMin=gIn<-1e-9&&gOut>1e-9;
+      if(!isMax&&!isMin) continue;
+      const prom=isMax?b.inv-Math.max(a.inv,c.inv):Math.min(a.inv,c.inv)-b.inv;
+      if(prom>=tol) continue;
+      // try merging a→c into one straight leg
+      const len=c.ch-a.ch;
+      const g=((c.inv-a.inv)/len)*100;
+      const gradeOk=(g>=p.minRise)||(g<=-p.minFall);
+      if(!gradeOk) continue;
+      const coverOk=c.inv<=legBound(a.ch,a.inv,c.ch,smoothed,offset)+1e-9;
+      if(!coverOk) continue;
+      if(!segSvcOk(a,c,p)) continue;   // merged leg must still clear services
+      bps.splice(i,1);
+      changed=true;
+      break;
+    }
+  }
+  return bps;
+}
+
+function applyFixedInverts(bps, p){
+  if(p.startInvert!==null) bps[0]={...bps[0],inv:p.startInvert};
+  if(p.endInvert!==null)   bps[bps.length-1]={...bps[bps.length-1],inv:p.endInvert};
+  return bps;
+}
+
+// ═══════════════════════════════════════════════
+// STRATEGY: FOLLOW TERRAIN (shallow, regular breaks)
+// ═══════════════════════════════════════════════
+function runFollowTerrain(name,desc,colour,smoothed,p,offset){
+  const bpChs=addSvcStations(makeBreakPts(smoothed,p.minSegLen),p);
+  let bps=shallowWalk(bpChs,smoothed,p,offset);
+  bps=applyFixedInverts(bps,p);
+  const r=buildSegments(bps,smoothed,p);
+  if(!r) return null;
+  return {name,desc,colour,...r,path:bps};
+}
+
+// ═══════════════════════════════════════════════
+// STRATEGY: CONCEPT LEGS (breaks only at terrain crests/sags)
+// ═══════════════════════════════════════════════
+function runConceptLegs(name,desc,colour,smoothed,p,offset){
+  const ch0=smoothed[0].ch,chN=smoothed[smoothed.length-1].ch;
+  const ext=surfaceExtrema(smoothed,0.2,Math.max(p.minSegLen,60));
+  let bpChs=[ch0,...ext.filter(c=>c>ch0+p.minSegLen&&c<chN-p.minSegLen),chN];
+  // split any leg longer than maxSegLen
+  const out=[bpChs[0]];
+  for(let i=1;i<bpChs.length;i++){
+    let gap=bpChs[i]-out[out.length-1];
+    while(gap>p.maxSegLen){
+      out.push(out[out.length-1]+p.maxSegLen);
+      gap=bpChs[i]-out[out.length-1];
+    }
+    out.push(bpChs[i]);
+  }
+  bpChs=addSvcStations(out,p);
+  let bps=shallowWalk(bpChs,smoothed,p,offset);
+  bps=applyFixedInverts(bps,p);
+  const r=buildSegments(bps,smoothed,p);
+  if(!r) return null;
+  return {name,desc,colour,...r,path:bps};
+}
+
+// ═══════════════════════════════════════════════
+// STRATEGY: CONSTANT GRADE END-TO-END
+// ═══════════════════════════════════════════════
+function runConstantGrade(name,desc,colour,smoothed,p,offset){
+  const ch0=smoothed[0].ch,chN=smoothed[smoothed.length-1].ch,L=chN-ch0;
+  let inv0,invN;
+  if(p.startInvert!==null&&p.endInvert!==null){
+    inv0=p.startInvert;invN=p.endInvert;
+  }else{
+    // shallowest feasible straight line
+    let anchor0=p.startInvert!==null?p.startInvert:maxInv(ch0,smoothed,offset);
+    let anchorN=p.endInvert!==null?p.endInvert:maxInv(chN,smoothed,offset);
+    // start from the naive line, then shift the free end(s) down until cover clears
+    let s=(anchorN-anchor0)/L; // m/m
+    // find max violation of the line above the envelope
+    for(let iter=0;iter<3;iter++){
+      let viol=0;
+      for(const pt of smoothed){
+        const lineInv=anchor0+s*(pt.ch-ch0);
+        const env=pt.rl-offset;
+        if(lineInv-env>viol) viol=lineInv-env;
+      }
+      if(viol<=1e-6) break;
+      if(p.startInvert===null&&p.endInvert===null){
+        anchor0-=viol; // shift whole line down (parallel)
+      }else if(p.startInvert!==null){
+        anchorN-=viol*1.5; s=(anchorN-anchor0)/L; // steepen away from fixed start
+      }else{
+        anchor0-=viol*1.5; s=(anchorN-anchor0)/L;
+      }
+    }
+    // service bands: a straight line can't dodge upward mid-run, so if it
+    // lands inside a clearance band, push it down to pass UNDER that service
+    for(let iter=0;iter<4&&p.svcCons&&p.svcCons.length;iter++){
+      let shift=0;
+      for(const sc of p.svcCons){
+        if(sc.ch<ch0||sc.ch>chN) continue;
+        const lineInv=anchor0+s*(sc.ch-ch0);
+        if(lineInv>sc.lo+1e-6&&lineInv<sc.hi-1e-6){
+          const need=lineInv-sc.lo;
+          if(need>shift) shift=need;
+        }
+      }
+      if(shift<=1e-6) break;
+      if(p.startInvert===null&&p.endInvert===null) anchor0-=shift;
+      else if(p.startInvert!==null){anchorN-=shift*2;s=(anchorN-anchor0)/L;}
+      else {anchor0-=shift*2;s=(anchorN-anchor0)/L;}
+      // re-check cover is still fine (moving down never breaches cover)
+    }
+    inv0=anchor0;invN=anchor0+s*L;
+  }
+  // snap dead-flat lines to a valid falling grade
+  let g=((invN-inv0)/L)*100;
+  if(g>=0&&g<p.minRise){invN=inv0+(p.minRise/100)*L;g=p.minRise;}
+  if(g<0&&-g<p.minFall){invN=inv0-(p.minFall/100)*L;g=-p.minFall;}
+  const bps=[{ch:ch0,inv:inv0},{ch:chN,inv:invN}];
+  const r=buildSegments(bps,smoothed,p);
+  if(!r) return null;
+  return {name,desc,colour,...r,path:bps};
+}
+
+// ═══════════════════════════════════════════════
+// STRATEGY: DP with direction state — fittings in the objective
+// state = (station, invert level, arrival direction)
+// A direction change at a node = a fitting (AV or SC)
+// fitWeight lets a strategy over-penalise fittings (min-fittings mode)
+// ═══════════════════════════════════════════════
+function runDP(name,desc,colour,depthStep,maxExtraDepth,fitWeight,smoothed,p,offset){
+  const bpChs=addSvcStations(makeBreakPts(smoothed,p.minSegLen),p);
+  const N=bpChs.length;
+  const UP=0,DOWN=1,START=2;
+
+  function invLevels(i){
+    if(i===0&&p.startInvert!==null) return [p.startInvert];
+    if(i===N-1&&p.endInvert!==null) return [p.endInvert];
+    const mx=maxInv(bpChs[i],smoothed,offset);
+    const lvs=[];
+    for(let v=mx;v>=mx-maxExtraDepth-1e-9;v-=depthStep) lvs.push(Math.round(v*1e4)/1e4);
+    // at a service station, add the exact band edges as candidate levels so
+    // the pipe can hug the minimum clearance (shallowest legal position)
+    const band=svcBandAt(bpChs[i],p);
+    if(band){
+      if(band.hi<=mx+1e-9) lvs.push(Math.round(band.hi*1e4)/1e4);
+      if(band.lo>=mx-maxExtraDepth-1e-9&&band.lo<=mx+1e-9) lvs.push(Math.round(band.lo*1e4)/1e4);
+    }
+    return [...new Set(lvs)].sort((a,b)=>b-a);
+  }
+  const invArr=bpChs.map((_,i)=>invLevels(i));
+  // dp[i][j][d]
+  const dp=invArr.map(lvs=>lvs.map(()=>[
+    {cost:Infinity,pi:-1,pj:-1,pd:-1},
+    {cost:Infinity,pi:-1,pj:-1,pd:-1},
+    {cost:Infinity,pi:-1,pj:-1,pd:-1}]));
+  dp[0].forEach(c=>c[START].cost=0);
+
+  for(let i=0;i<N-1;i++){
+    const ch_i=bpChs[i];
+    for(let j=0;j<invArr[i].length;j++){
+      for(let d=0;d<3;d++){
+        if(dp[i][j][d].cost===Infinity) continue;
+        const inv_i=invArr[i][j];
+        for(let ni=i+1;ni<N;ni++){
+          const ch_ni=bpChs[ni];
+          const segLen=ch_ni-ch_i;
+          if(segLen>p.maxSegLen) break;
+          for(let k=0;k<invArr[ni].length;k++){
+            const inv_k=invArr[ni][k];
+            const g=((inv_k-inv_i)/segLen)*100; // signed, + rising
+            let nd;
+            if(g>=p.minRise-1e-9) nd=UP;
+            else if(g<=-(p.minFall-1e-9)) nd=DOWN;
+            else continue; // dead-flat prohibited
+            // fitting cost at node i on direction change
+            let fCost=0;
+            if(d===UP&&nd===DOWN) fCost=p.rateAV*fitWeight;
+            if(d===DOWN&&nd===UP) fCost=p.rateSC*fitWeight;
+            // cover check
+            let bad=false,dSum=0,dN=0;
+            for(const pt of smoothed){
+              if(pt.ch<ch_i-1e-6||pt.ch>ch_ni+1e-6) continue;
+              const t=(pt.ch-ch_i)/segLen;
+              const dep=pt.rl-(inv_i+(inv_k-inv_i)*t);
+              if(dep<offset-0.001){bad=true;break;}
+              dSum+=dep;dN++;
+            }
+            if(bad) continue;
+            // service clearance check along this segment
+            if(!segSvcOk({ch:ch_i,inv:inv_i},{ch:ch_ni,inv:inv_k},p)) continue;
+            const avgD=dN>0?dSum/dN:offset;
+            const eCost=excCost(segLen,avgD,p.trenchW,p.rateExc,p.rateBackfill,p.ratePipe);
+            const nc=dp[i][j][d].cost+eCost+fCost;
+            if(nc<dp[ni][k][nd].cost){
+              dp[ni][k][nd]={cost:nc,pi:i,pj:j,pd:d};
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // best end state
+  let best=null;
+  for(let k=0;k<invArr[N-1].length;k++)for(let d=0;d<3;d++){
+    if(dp[N-1][k][d].cost<Infinity&&(!best||dp[N-1][k][d].cost<best.cost)){
+      best={cost:dp[N-1][k][d].cost,k,d};
+    }
+  }
+  if(!best) return null;
+
+  const bps=[];
+  let ci=N-1,cj=best.k,cd=best.d;
+  while(ci>=0){
+    bps.unshift({ch:bpChs[ci],inv:invArr[ci][cj]});
+    const st=dp[ci][cj][cd]; ci=st.pi; cj=st.pj; cd=st.pd;
+  }
+
+  const r=buildSegments(bps,smoothed,p);
+  if(!r) return null;
+  return {name,desc,colour,...r,path:bps};
+}
+
+// ═══════════════════════════════════════════════
+// GLOBALS
+// ═══════════════════════════════════════════════
+let _results=[], _profile=[], _smoothed=[], _params={};
+let _selectedIdx=0;
+let _activeRes=null, _activeIdx=0;
+
+// ═══════════════════════════════════════════════
+// AUTO-FILL CONSTRAINTS
+// ═══════════════════════════════════════════════
+function autoFillConstraints(){
+  const raw=parseProfile(document.getElementById('profileInput').value);
+  if(raw.length<2){
+    document.getElementById('autoFillStatus').textContent='⚠ Paste your profile data first.';
+    return;
+  }
+  const smoothPasses=+document.getElementById('smoothing').value||0;
+  const sm=smoothPasses>0?smoothProfile(raw,smoothPasses):raw;
+  const minCov=+document.getElementById('minCover').value||0.75;
+  const pOD=+document.getElementById('pipeOD').value||0.324;
+  const bed=+document.getElementById('bedding').value||0.15;
+  const offset=minCov+pOD+bed;
+
+  const ch0=sm[0].ch, chN=sm[sm.length-1].ch;
+  const inv0=Math.round((sm[0].rl-offset)*1000)/1000;
+  const invN=Math.round((sm[sm.length-1].rl-offset)*1000)/1000;
+
+  document.getElementById('startCh').value=ch0.toFixed(2);
+  document.getElementById('endCh').value=chN.toFixed(2);
+  document.getElementById('startInvert').value=inv0.toFixed(3);
+  document.getElementById('endInvert').value=invN.toFixed(3);
+
+  const g=((invN-inv0)/(chN-ch0)*100).toFixed(2);
+  document.getElementById('autoFillStatus').innerHTML=
+    `✓ Filled: Ch ${ch0.toFixed(1)}–${chN.toFixed(1)}m · Start IL ${inv0.toFixed(3)} · End IL ${invN.toFixed(3)} · Overall grade ${g}%`;
+}
+function clearConstraints(){
+  ['startCh','endCh','startInvert','endInvert'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('autoFillStatus').textContent='Cleared.';
+}
+
+// ═══════════════════════════════════════════════
+// RUN ALL STRATEGIES
+// ═══════════════════════════════════════════════
+async function runAll(){
+  const btn=document.getElementById('runBtn');
+  btn.disabled=true;
+  setStatus('Parsing surface profile...');
+  await sleep(10);
+
+  const _si=document.getElementById('startInvert').value.trim();
+  const _ei=document.getElementById('endInvert').value.trim();
+  const _sc=document.getElementById('startCh').value.trim();
+  const _ec=document.getElementById('endCh').value.trim();
+  const p={
+    minCover:+v('minCover'), pipeOD:+v('pipeOD'), bedding:+v('bedding'),
+    trenchW:+v('trenchW'),
+    minRise:+v('minRise')||0.2, minFall:+v('minFall')||0.33,
+    smoothing:+v('smoothing'),
+    minSegLen:+v('minSegLen')||40, maxSegLen:+v('maxSegLen')||400,
+    maxCover:+v('maxCover')||3.0,
+    rateExc:+v('rateExc'), rateBackfill:+v('rateBackfill'),
+    ratePipe:+v('ratePipe'),
+    rateAV:+v('rateAV')||18000, rateSC:+v('rateSC')||12000,
+    startInvert:_si!==''?+_si:null,
+    endInvert:_ei!==''?+_ei:null,
+    startCh:_sc!==''?+_sc:null,
+    endCh:_ec!==''?+_ec:null,
+    dn:+v('dn')||300,
+  };
+  p.svcCons=buildSvcCons(_services,p);
+  _params=p;
+  const offset=p.minCover+p.pipeOD+p.bedding;
+
+  const raw=parseProfile(document.getElementById('profileInput').value);
+  if(raw.length<2){setStatus('⚠ Need at least 2 profile points.',true);btn.disabled=false;return;}
+  _profile=raw;
+  let sm=p.smoothing>0?smoothProfile(raw,p.smoothing):raw;
+  if(p.startCh!==null) sm=sm.filter(pt=>pt.ch>=p.startCh-1e-6);
+  if(p.endCh!==null)   sm=sm.filter(pt=>pt.ch<=p.endCh+1e-6);
+  if(sm.length<2){setStatus('⚠ Start/End chainage leaves fewer than 2 profile points.',true);btn.disabled=false;return;}
+  _smoothed=sm;
+
+  showProgress(true); setProgress(5);
+  setStatus(p.svcCons.length
+    ?`Generating concept alignments — clearing ${p.svcCons.length} service crossing(s) per WSAA 5.5...`
+    :'Generating concept vertical alignments...');
+  await sleep(10);
+
+  const results=[];
+
+  // A — Follow Terrain
+  setStatus('Strategy 1/5: Follow terrain at minimum cover...');
+  setProgress(15); await sleep(0);
+  const s1=runFollowTerrain(
+    'Follow Terrain — Min Cover',
+    'Pipe parallels the surface at minimum cover with regular grade breaks. Least excavation, but every surface crest becomes an air valve and every sag a scour — fitting count follows the terrain.',
+    '#00a884', sm, p, offset);
+  if(s1) results.push(s1);
+
+  // B — Concept Legs
+  setStatus('Strategy 2/5: Long concept legs at terrain crests and sags...');
+  setProgress(30); await sleep(0);
+  const s2=runConceptLegs(
+    'Concept Legs — Breaks at Crests & Sags',
+    'Grade breaks only at significant terrain crests and sags, giving long clean legs suited to a concept drawing. Fittings sit at deliberate, well-spaced high and low points.',
+    '#527FC0', sm, p, offset);
+  if(s2) results.push(s2);
+
+  // C — Least Total Cost DP
+  setStatus('Strategy 3/5: Least total cost — trading trench depth against fittings...');
+  setProgress(50); await sleep(0);
+  const s3=runDP(
+    'Least Total Cost',
+    'Optimiser searches invert levels at every break point, trading extra trench depth against air valve and scour costs to find the cheapest overall alignment.',
+    '#182C69', 0.2, 2.5, 1.0, sm, p, offset);
+  if(s3) results.push(s3);
+
+  // D — Minimise Fittings DP
+  setStatus('Strategy 4/5: Minimum fittings — burying crests to remove air valves...');
+  setProgress(70); await sleep(0);
+  const extraD=Math.max(1.5, (p.maxCover||3.0)-offset+1.0); // realistic urban depth cap
+  const s4=runDP(
+    'Minimum Fittings',
+    'Deliberately digs through surface crests and rides over sags to eliminate as many high and low points as possible. Fewest air valves and scours — simplest to operate and maintain, at the cost of deeper trench.',
+    '#7c3aed', 0.25, extraD, 8.0, sm, p, offset);
+  if(s4){
+    // reported cost must be true cost, not the weighted objective
+    results.push(s4);
+  }
+
+  // E — Constant Grade
+  setStatus('Strategy 5/5: Single constant grade end to end...');
+  setProgress(85); await sleep(0);
+  const s5=runConstantGrade(
+    'Constant Grade — End to End',
+    'One straight grade from start IL to end IL, buried deep enough to clear cover everywhere. No intermediate fittings on a monotonic run — the simplest possible long section.',
+    '#f5a623', sm, p, offset);
+  if(s5) results.push(s5);
+
+  setProgress(100); await sleep(80);
+  showProgress(false);
+
+  if(results.length===0){
+    setStatus('⚠ No valid alignments found. Check profile data and constraints.',true);
+    btn.disabled=false; return;
+  }
+
+  // De-duplicate near-identical results (e.g. C and D converging)
+  const dedup=[];
+  for(const r of results){
+    const dup=dedup.find(x=>Math.abs(x.cost-r.cost)<1&&x.nAV===r.nAV&&x.nSC===r.nSC&&x.segs.length===r.segs.length);
+    if(!dup) dedup.push(r);
+  }
+
+  dedup.sort((a,b)=>a.cost-b.cost);
+  dedup.forEach((r,i)=>{r.rank=i+1;});
+
+  _results=dedup;
+  _selectedIdx=0;
+
+  setStatus(`✓ ${dedup.length} concept sections — cheapest $${fmt(dedup[0].cost)}`);
+  btn.disabled=false;
+
+  renderResults(dedup);
+  buildToggleBar(dedup);
+  renderChart(dedup);
+  switchTab('scenarios-pane', document.querySelectorAll('.tab')[1]);
+}
+
+// ═══════════════════════════════════════════════
+// RENDER STRATEGY CARDS
+// ═══════════════════════════════════════════════
+function renderResults(results){
+  const best=results[0];
+  document.getElementById('kpiRow').innerHTML=`
+    <div class="kc best">
+      <div class="kl">Cheapest Concept</div>
+      <div class="kv g">$${fmt(best.cost)}</div>
+      <div class="ks">${best.name}</div>
+    </div>
+    <div class="kc">
+      <div class="kl">Cost Range</div>
+      <div class="kv a">$${fmt(results[results.length-1].cost-best.cost)}</div>
+      <div class="ks">spread across ${results.length} strategies</div>
+    </div>
+    <div class="kc">
+      <div class="kl">Fittings on Cheapest</div>
+      <div class="kv">${best.nAV} AV · ${best.nSC} SC</div>
+      <div class="ks">$${fmt(best.fitCost)} of fittings</div>
+    </div>`;
+
+  const wb=document.getElementById('warnBox'); wb.innerHTML='';
+  const warns=[];
+  if(best.deepFlags>0) warns.push(`⚠ ${best.deepFlags} leg(s) exceed max cover (${_params.maxCover||3.0}m) — trench shoring/support design required.`);
+  if(warns.length) wb.innerHTML=warns.map(w=>`<div class="warn-box">${w}</div>`).join('');
+
+  const grid=document.getElementById('strategyGrid'); grid.innerHTML='';
+  results.forEach((res,idx)=>{
+    const isB=idx===0;
+    const card=document.createElement('div');
+    card.className='strat-card'+(isB?' active-card':'');
+    card.innerHTML=`
+      <div class="strat-head">
+        <div class="strat-swatch" style="background:${res.colour};"></div>
+        <div>
+          <div class="strat-name">${res.name}</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px;">Strategy ${String.fromCharCode(65+idx)}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div class="strat-cost" style="color:${isB?'var(--accent)':'var(--text)'};">$${fmt(res.cost)}</div>
+          ${isB?`<span class="strat-tag tag-best">CHEAPEST</span>`:
+                `<span class="strat-tag tag-alt">+$${fmt(res.cost-results[0].cost)}</span>`}
+        </div>
+      </div>
+      <div class="strat-stats">
+        <div><div class="ss-l">Air Valves</div><div class="ss-v">${res.nAV}</div></div>
+        <div><div class="ss-l">Scours</div><div class="ss-v">${res.nSC}</div></div>
+        <div><div class="ss-l">Fittings $</div><div class="ss-v">$${fmt(res.fitCost)}</div></div>
+        <div><div class="ss-l">Exc+Pipe $</div><div class="ss-v">$${fmt(res.totalExc)}</div></div>
+        <div><div class="ss-l">Legs</div><div class="ss-v">${res.segs.length}</div></div>
+        <div><div class="ss-l">Avg Depth</div><div class="ss-v">${res.avgDepth.toFixed(2)}m</div></div>
+        <div><div class="ss-l">Max Depth</div><div class="ss-v">${res.maxDepth.toFixed(2)}m</div></div>
+        <div><div class="ss-l">Grade Breaks</div><div class="ss-v">${res.path.length}</div></div>
+      </div>
+      <div style="padding:4px 12px 5px;display:flex;gap:3px;flex-wrap:wrap;">
+        ${res.deepFlags>0?'<span class="rule-pill rule-warn">⚠ '+res.deepFlags+' deep leg'+(res.deepFlags>1?'s':'')+'</span>':''}
+        ${res.deepFlags===0?'<span class="rule-pill rule-ok">✓ All design rules pass</span>':''}
+        ${(_params.svcCons&&_params.svcCons.length)?'<span class="rule-pill rule-ok">✓ Clears '+_params.svcCons.length+' service crossing'+(_params.svcCons.length>1?'s':'')+' (WSAA 5.5)</span>':''}
+      </div>
+      <div class="strat-desc">${res.desc}</div>`;
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('.strat-card').forEach(c=>c.classList.remove('active-card'));
+      card.classList.add('active-card');
+      _selectedIdx=idx;
+      document.querySelectorAll('#chartToggles .scen-btn').forEach((b,i)=>{
+        b.classList.toggle('active',i===idx);
+      });
+      updateChartDesc(res);
+      showSegDetail(res,idx);
+    });
+    grid.appendChild(card);
+  });
+
+  document.getElementById('scenEmpty').style.display='none';
+  document.getElementById('scenarioContent').style.display='block';
+}
+
+// ═══════════════════════════════════════════════
+// LEGS & FITTINGS DETAIL
+// ═══════════════════════════════════════════════
+function showSegDetail(res,idx){
+  _activeRes=res; _activeIdx=idx;
+  document.getElementById('segEmpty').style.display='none';
+  document.getElementById('segmentContent').style.display='block';
+  document.getElementById('segTitle').innerHTML=
+    `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${res.colour};margin-right:6px;"></span>${res.name}`;
+
+  document.getElementById('segKpiRow').innerHTML=`
+    <div class="kc"><div class="kl">Fittings Cost</div><div class="kv">$${fmt(res.fitCost)}</div>
+    <div class="ks">${res.nAV} air valve(s) · ${res.nSC} scour(s)</div></div>
+    <div class="kc"><div class="kl">Excavation + Pipe</div><div class="kv">$${fmt(res.totalExc)}</div></div>
+    <div class="kc best"><div class="kl">Total Cost</div><div class="kv g">$${fmt(res.cost)}</div></div>`;
+
+  const wbs=document.getElementById('warnBoxSeg'); wbs.innerHTML='';
+  const segWarns=[];
+  if(res.deepFlags>0) segWarns.push(`⚠ ${res.deepFlags} leg(s) exceed ${_params.maxCover||3.0}m cover — shoring design required.`);
+  if(res.nAV===0&&res.nSC===0) segWarns.push(`ℹ No intermediate fittings — check whether air valves are still required at the tie-in ends by the network operator.`);
+  if(segWarns.length) wbs.innerHTML=segWarns.map(w=>`<div class="warn-box">${w}</div>`).join('');
+
+  const tbody=document.getElementById('segmentBody'); tbody.innerHTML='';
+  res.segs.forEach(seg=>{
+    const rising=seg.grade>=0;
+    const oneIn=Math.abs(seg.grade)>0.001?Math.round(100/Math.abs(seg.grade)):'—';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${seg.no}</td><td>${seg.chStart.toFixed(1)}</td><td>${seg.chEnd.toFixed(1)}</td>
+      <td>${seg.len.toFixed(1)}</td>
+      <td><span class="gp ${rising?'g-rise':'g-fall'}">${rising?'+':''}${seg.grade.toFixed(2)}%</span></td>
+      <td>1:${oneIn}</td>
+      <td>${seg.invStart.toFixed(3)}</td><td>${seg.invEnd.toFixed(3)}</td>
+      <td>${seg.avgDepth.toFixed(2)}m</td>
+      <td>${seg.maxDepth.toFixed(2)}m${seg.deepFlag?' ⚠':''}</td>
+      <td>$${fmt(seg.excCost)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const tf=document.createElement('tr');
+  tf.innerHTML=`<td colspan="10" style="text-align:right;color:var(--muted);">EXCAVATION + PIPE TOTAL</td>
+    <td style="color:var(--accent);">$${fmt(res.totalExc)}</td>`;
+  tbody.appendChild(tf);
+
+  const fbody=document.getElementById('fittingBody'); fbody.innerHTML='';
+  if(res.fits.length===0){
+    fbody.innerHTML='<tr><td colspan="5" style="color:var(--muted);">No intermediate fittings — monotonic alignment.</td></tr>';
+  }else{
+    res.fits.forEach((f,i)=>{
+      const cost=f.type==='AV'?_params.rateAV:_params.rateSC;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${i+1}</td>
+        <td><span class="gp ${f.type==='AV'?'g-av':'g-sc'}">${f.type==='AV'?'AIR VALVE':'SCOUR'}</span></td>
+        <td>${f.ch.toFixed(1)}</td><td>${f.inv.toFixed(3)}</td><td>$${fmt(cost)}</td>`;
+      fbody.appendChild(tr);
+    });
+    const ff=document.createElement('tr');
+    ff.innerHTML=`<td colspan="4" style="text-align:right;color:var(--muted);">FITTINGS TOTAL</td>
+      <td style="color:var(--accent);">$${fmt(res.fitCost)}</td>`;
+    fbody.appendChild(ff);
+  }
+
+  switchTab('segments-pane',document.querySelectorAll('.tab')[2]);
+}
+
+function exportCSV(){
+  if(!_activeRes) return;
+  const hdr=['Leg','Ch Start','Ch End','Len','Grade%','1 in','Inv Start','Inv End','Avg Depth','Max Depth','Exc+Pipe$'];
+  const rows=_activeRes.segs.map(s=>[
+    s.no,s.chStart.toFixed(1),s.chEnd.toFixed(1),s.len.toFixed(1),s.grade.toFixed(3),
+    Math.abs(s.grade)>0.001?Math.round(100/Math.abs(s.grade)):'',
+    s.invStart.toFixed(3),s.invEnd.toFixed(3),s.avgDepth.toFixed(3),s.maxDepth.toFixed(3),
+    s.excCost.toFixed(0)
+  ]);
+  const fitHdr=['','Fitting','Type','Chainage','Invert RL','Cost$'];
+  const fitRows=_activeRes.fits.map((f,i)=>[
+    '',i+1,f.type==='AV'?'AIR VALVE':'SCOUR',f.ch.toFixed(1),f.inv.toFixed(3),
+    (f.type==='AV'?_params.rateAV:_params.rateSC).toFixed(0)
+  ]);
+  const csv=[hdr,...rows,[],fitHdr,...fitRows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download=`concept_${String.fromCharCode(65+_activeIdx)}.csv`;
+  a.click();
+}
+
+// ═══════════════════════════════════════════════
+// TOGGLE BAR
+// ═══════════════════════════════════════════════
+function buildToggleBar(results){
+  const bar=document.getElementById('chartToggles');
+  bar.innerHTML='<span class="toggle-label">Strategy:</span>';
+  _selectedIdx=0;
+  results.forEach((res,idx)=>{
+    const btn=document.createElement('div');
+    btn.className='scen-btn'+(idx===0?' active':'');
+    btn.style.color=res.colour;
+    btn.dataset.idx=idx;
+    btn.innerHTML=`<div class="sw" style="background:${res.colour};"></div><span>${String.fromCharCode(65+idx)} — ${res.name}</span>`;
+    btn.addEventListener('click',()=>{
+      _selectedIdx=idx;
+      bar.querySelectorAll('.scen-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      updateChartDesc(results[idx]);
+      renderChart(_results);
+    });
+    bar.appendChild(btn);
+  });
+  updateChartDesc(results[0]);
+}
+
+function updateChartDesc(res){
+  const ltr=String.fromCharCode(65+_results.indexOf(res));
+  document.getElementById('chartDescRow').innerHTML=
+    `<strong style="color:${res.colour};">${ltr} — ${res.name}</strong>${res.desc}`;
+}
+
+// ═══════════════════════════════════════════════
+// CHART — concept long section
+// ═══════════════════════════════════════════════
+function renderChart(results){
+  document.getElementById('chartEmpty').style.display='none';
+  const canvas=document.getElementById('profileCanvas');
+  const cont=document.getElementById('chart-container');
+  canvas.width=cont.clientWidth; canvas.height=cont.clientHeight;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+
+  const pad={top:30,right:32,bottom:44,left:62};
+  const pw=W-pad.left-pad.right, ph=H-pad.top-pad.bottom;
+
+  const profile=_profile, sm=_smoothed;
+  const offset=_params.minCover+_params.pipeOD+_params.bedding;
+  const res=results[_selectedIdx];
+  const col=res.colour;
+
+  const svcILs=_services.filter(s=>!isNaN(+s.il)&&s.il!=='').map(s=>+s.il);
+  const allRLs=[...sm.map(p=>p.rl), ...res.path.map(pt=>pt.inv), ...sm.map(p=>p.rl-offset), ...svcILs];
+  const minRL=Math.min(...allRLs)-0.5;
+  const maxRL=Math.max(...allRLs)+1.0;
+  const minCh=sm[0].ch, maxCh=sm[sm.length-1].ch;
+
+  const xp=ch=>pad.left+(ch-minCh)/(maxCh-minCh)*pw;
+  const yp=rl=>pad.top+(1-(rl-minRL)/(maxRL-minRL))*ph;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F5F6F8';
+  ctx.fillRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle='#D9D9D7'; ctx.lineWidth=1; ctx.setLineDash([3,4]);
+  const rlStep=niceStep((maxRL-minRL)/6);
+  for(let rl=Math.ceil(minRL/rlStep)*rlStep;rl<=maxRL;rl+=rlStep){
+    const y=yp(rl);
+    if(y<pad.top||y>H-pad.bottom) continue;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(W-pad.right,y);ctx.stroke();
+    ctx.fillStyle='#6B7280';ctx.font='9px IBM Plex Mono,monospace';ctx.textAlign='right';
+    ctx.fillText(rl.toFixed(2),pad.left-4,y+3);
+  }
+  const chStep=niceStep((maxCh-minCh)/8);
+  for(let ch=Math.ceil(minCh/chStep)*chStep;ch<=maxCh;ch+=chStep){
+    const x=xp(ch);
+    ctx.beginPath();ctx.moveTo(x,pad.top);ctx.lineTo(x,H-pad.bottom);ctx.stroke();
+    ctx.fillStyle='#6B7280';ctx.font='9px IBM Plex Mono,monospace';ctx.textAlign='center';
+    ctx.fillText(ch.toFixed(0)+'m',x,H-pad.bottom+13);
+  }
+  ctx.setLineDash([]);
+
+  // Axis labels
+  ctx.fillStyle='#3A3A3A';ctx.font='10px Nunito Sans,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Chainage (m)',W/2,H-3);
+  ctx.save();ctx.translate(11,pad.top+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('RL (m AHD)',0,0);ctx.restore();
+
+  // Surface fill + line
+  ctx.beginPath();
+  ctx.moveTo(xp(profile[0].ch),yp(profile[0].rl));
+  for(const pt of profile) ctx.lineTo(xp(pt.ch),yp(pt.rl));
+  ctx.lineTo(xp(profile[profile.length-1].ch),H-pad.bottom);
+  ctx.lineTo(xp(profile[0].ch),H-pad.bottom);
+  ctx.closePath();
+  ctx.fillStyle='rgba(82,127,192,0.08)';ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(xp(profile[0].ch),yp(profile[0].rl));
+  for(const pt of profile) ctx.lineTo(xp(pt.ch),yp(pt.rl));
+  ctx.strokeStyle='rgba(82,127,192,0.3)';ctx.lineWidth=1;ctx.stroke();
+  if(_params.smoothing>0){
+    ctx.beginPath();
+    ctx.moveTo(xp(sm[0].ch),yp(sm[0].rl));
+    for(const pt of sm) ctx.lineTo(xp(pt.ch),yp(pt.rl));
+    ctx.strokeStyle='#527FC0';ctx.lineWidth=2;ctx.stroke();
+  }
+
+  // Cover envelope
+  ctx.beginPath();
+  ctx.moveTo(xp(sm[0].ch),yp(sm[0].rl-offset));
+  for(const pt of sm) ctx.lineTo(xp(pt.ch),yp(pt.rl-offset));
+  ctx.strokeStyle='#f5a623';ctx.lineWidth=1.2;ctx.setLineDash([5,4]);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Excavation shading between invert and cover envelope, per leg
+  for(let s=0;s<res.segs.length;s++){
+    const a=res.path[s], b=res.path[s+1];
+    ctx.beginPath();
+    ctx.moveTo(xp(a.ch),yp(a.inv));
+    ctx.lineTo(xp(b.ch),yp(b.inv));
+    const subPts=sm.filter(pt=>pt.ch>=a.ch-1e-6&&pt.ch<=b.ch+1e-6);
+    for(let i=subPts.length-1;i>=0;i--) ctx.lineTo(xp(subPts[i].ch),yp(subPts[i].rl-offset));
+    ctx.closePath();
+    ctx.fillStyle=hexAlpha(col,0.09);ctx.fill();
+  }
+
+  // Pipe line + grade labels
+  for(let s=0;s<res.segs.length;s++){
+    const seg=res.segs[s];
+    const a=res.path[s], b=res.path[s+1];
+    ctx.beginPath();
+    ctx.moveTo(xp(a.ch),yp(a.inv));
+    ctx.lineTo(xp(b.ch),yp(b.inv));
+    ctx.strokeStyle=col;ctx.lineWidth=3;ctx.stroke();
+
+    if(xp(b.ch)-xp(a.ch)>46){
+      const midCh=(a.ch+b.ch)/2, midInv=(a.inv+b.inv)/2;
+      const lx=xp(midCh), ly=yp(midInv)+16;
+      const glbl=`${seg.grade>=0?'+':''}${seg.grade.toFixed(2)}%`;
+      ctx.font='bold 9px IBM Plex Mono,monospace';
+      const tw=ctx.measureText(glbl).width;
+      ctx.fillStyle='rgba(255,255,255,0.85)';
+      ctx.fillRect(lx-tw/2-3,ly-9,tw+6,12);
+      ctx.fillStyle=col;
+      ctx.textAlign='center';
+      ctx.fillText(glbl,lx,ly);
+    }
+  }
+
+  // Grade break markers
+  res.path.forEach(pt=>{
+    ctx.beginPath();
+    ctx.arc(xp(pt.ch),yp(pt.inv),3.5,0,Math.PI*2);
+    ctx.fillStyle=col;ctx.fill();
+    ctx.strokeStyle='#FFFFFF';ctx.lineWidth=1.5;ctx.stroke();
+  });
+
+  // ── FITTING SYMBOLS (per CMP drawing convention) ──────────────
+  // Air valve — solid triangle flag on a riser stem. Stem starts AT the
+  // pipe high point and runs up to the surface; flag sits at the surface.
+  // Scour — crossed circle (⊗) on a stem from the pipe low point up to
+  // the surface.
+  res.fits.forEach(f=>{
+    const fx=xp(f.ch);
+    const py=yp(f.inv);                       // pipe point
+    const sy=yp(interpRL(sm,f.ch));           // surface at this chainage
+    if(f.type==='AV'){
+      // riser stem: pipe high point → surface
+      ctx.beginPath();ctx.moveTo(fx,py);ctx.lineTo(fx,sy-2);
+      ctx.strokeStyle='#182C69';ctx.lineWidth=1.6;ctx.stroke();
+      // solid left-pointing triangle flag at the top of the stem
+      ctx.beginPath();
+      ctx.moveTo(fx,sy-2);
+      ctx.lineTo(fx,sy-13);
+      ctx.lineTo(fx-11,sy-7.5);
+      ctx.closePath();
+      ctx.fillStyle='#182C69';ctx.fill();
+      // label above the flag
+      const lbl=`AV Ch ${f.ch.toFixed(0)}`;
+      ctx.font='bold 8px Nunito Sans,sans-serif';ctx.textAlign='center';
+      const tw=ctx.measureText(lbl).width;
+      ctx.fillStyle='rgba(255,255,255,0.9)';ctx.fillRect(fx-tw/2-3,sy-27,tw+6,11);
+      ctx.fillStyle='#182C69';ctx.fillText(lbl,fx,sy-19);
+    }else{
+      // stem: pipe low point → surface
+      const r=5.5, cy=sy-2-r;                 // circle sits just above surface
+      ctx.beginPath();ctx.moveTo(fx,py);ctx.lineTo(fx,cy+r);
+      ctx.strokeStyle='#182C69';ctx.lineWidth=1.6;ctx.stroke();
+      // crossed circle ⊗
+      ctx.beginPath();ctx.arc(fx,cy,r,0,Math.PI*2);
+      ctx.fillStyle='#fff';ctx.fill();
+      ctx.strokeStyle='#182C69';ctx.lineWidth=1.6;ctx.stroke();
+      const k=r*0.707;
+      ctx.beginPath();
+      ctx.moveTo(fx-k,cy-k);ctx.lineTo(fx+k,cy+k);
+      ctx.moveTo(fx+k,cy-k);ctx.lineTo(fx-k,cy+k);
+      ctx.strokeStyle='#182C69';ctx.lineWidth=1.4;ctx.stroke();
+      // label above the circle
+      const lbl=`SC Ch ${f.ch.toFixed(0)}`;
+      ctx.font='bold 8px Nunito Sans,sans-serif';ctx.textAlign='center';
+      const tw=ctx.measureText(lbl).width;
+      ctx.fillStyle='rgba(255,255,255,0.9)';ctx.fillRect(fx-tw/2-3,cy-r-14,tw+6,11);
+      ctx.fillStyle='#182C69';ctx.fillText(lbl,fx,cy-r-6);
+    }
+  });
+
+  // Summary label top-right
+  const ltr=String.fromCharCode(65+_selectedIdx);
+  ctx.font='bold 11px Nunito Sans,sans-serif';ctx.textAlign='right';
+  ctx.fillStyle=col;
+  ctx.fillText(`${ltr}  $${fmt(res.cost)}`,W-pad.right-4,pad.top+14);
+  ctx.font='9px IBM Plex Mono,monospace';ctx.fillStyle='#6B7280';
+  ctx.fillText(`${res.nAV} AV · ${res.nSC} SC · ${res.segs.length} legs · max ${res.maxDepth.toFixed(1)}m deep`,W-pad.right-4,pad.top+27);
+
+  // Fixed invert markers
+  if(_params.startInvert!==null){
+    const sx=xp(sm[0].ch), sy=yp(_params.startInvert);
+    ctx.beginPath();ctx.moveTo(sx,sy-12);ctx.lineTo(sx,sy+12);
+    ctx.strokeStyle='#E31B23';ctx.lineWidth=2.5;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx+40,sy);
+    ctx.strokeStyle='#E31B23';ctx.lineWidth=1;ctx.setLineDash([3,2]);ctx.stroke();
+    ctx.setLineDash([]);
+    const lbl0=`START IL ${_params.startInvert.toFixed(3)}m`;
+    ctx.font='bold 9px Nunito Sans,sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    const tw0=ctx.measureText(lbl0).width;
+    ctx.fillRect(sx+44,sy-18,tw0+6,13);
+    ctx.fillStyle='#E31B23';ctx.textAlign='left';
+    ctx.fillText(lbl0,sx+47,sy-8);
+  }
+  if(_params.endInvert!==null){
+    const ex=xp(sm[sm.length-1].ch), ey=yp(_params.endInvert);
+    ctx.beginPath();ctx.moveTo(ex,ey-12);ctx.lineTo(ex,ey+12);
+    ctx.strokeStyle='#E31B23';ctx.lineWidth=2.5;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex-40,ey);
+    ctx.strokeStyle='#E31B23';ctx.lineWidth=1;ctx.setLineDash([3,2]);ctx.stroke();
+    ctx.setLineDash([]);
+    const lbl1=`END IL ${_params.endInvert.toFixed(3)}m`;
+    ctx.font='bold 9px Nunito Sans,sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    const tw1=ctx.measureText(lbl1).width;
+    ctx.fillRect(ex-44-tw1-6,ey-18,tw1+6,13);
+    ctx.fillStyle='#E31B23';ctx.textAlign='right';
+    ctx.fillText(lbl1,ex-47,ey-8);
+  }
+
+  // Services
+  const dn=+document.getElementById('dn').value||300;
+  drawServices(ctx,res,xp,yp,pad,W,H,minCh,maxCh,dn);
+
+  document.getElementById('chartInfo').textContent=
+    `${results.length} strategies · ${String.fromCharCode(65+_selectedIdx)} = $${fmt(res.cost)}`;
+}
+
+function hexAlpha(hex,a){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+// ═══════════════════════════════════════════════
+// WSAA TABLE 5.5 — SERVICE CLEARANCES
+// ═══════════════════════════════════════════════
+const WSAA_SVC = {
+  water_gt375:    { label:'Water main >DN375',          hSmall:600,  hLarge:600,  v:300, colour:'#182C69' },
+  water_lte375:   { label:'Water main ≤DN375',          hSmall:300,  hLarge:600,  v:150, colour:'#527FC0' },
+  gas:            { label:'Gas main',                   hSmall:300,  hLarge:600,  v:150, colour:'#f5a623' },
+  telecom:        { label:'Telecom conduits/cables',    hSmall:300,  hLarge:600,  v:150, colour:'#a78bfa' },
+  electricity:    { label:'Electricity conduits/cables',hSmall:500,  hLarge:1000, v:225, colour:'#fbbf24' },
+  stormwater:     { label:'Stormwater drains',          hSmall:300,  hLarge:600,  v:150, colour:'#4CC2C5' },
+  sewer_gravity:  { label:'Sewers – gravity',           hSmall:1000, hLarge:1000, v:500, colour:'#92400e' },
+  sewer_pressure: { label:'Sewers – pressure/vacuum',   hSmall:600,  hLarge:600,  v:300, colour:'#b45309' },
+  kerb:           { label:'Kerbs',                      hSmall:150,  hLarge:600,  v:150, colour:'#6b7280' },
+};
+
+let _services = [];
+
+function addService(){
+  _services.push({ ch:'', il:'', type:'water_lte375' });
+  renderServiceRows();
+}
+function clearServices(){
+  _services=[];
+  renderServiceRows();
+  if(_results.length>0) renderChart(_results);
+}
+function renderServiceRows(){
+  const container=document.getElementById('svcRows');
+  container.innerHTML='';
+  _services.forEach((svc,idx)=>{
+    const row=document.createElement('div');
+    row.className='svc-row';
+    row.innerHTML=`
+      <input type="number" placeholder="Ch (m)" value="${svc.ch}" step="0.01"
+        onchange="_services[${idx}].ch=this.value;if(_results.length>0)renderChart(_results);">
+      <input type="number" placeholder="IL (m AHD)" value="${svc.il}" step="0.001"
+        onchange="_services[${idx}].il=this.value;if(_results.length>0)renderChart(_results);">
+      <select onchange="_services[${idx}].type=this.value;if(_results.length>0)renderChart(_results);">
+        ${Object.entries(WSAA_SVC).map(([k,v])=>`<option value="${k}"${k===svc.type?' selected':''}>${v.label}</option>`).join('')}
+      </select>
+      <button class="svc-del" onclick="_services.splice(${idx},1);renderServiceRows();if(_results.length>0)renderChart(_results);">×</button>`;
+    container.appendChild(row);
+  });
+}
+
+function pipeInvAtCh(path, ch){
+  if(!path||path.length<2) return null;
+  if(ch<=path[0].ch) return path[0].inv;
+  if(ch>=path[path.length-1].ch) return path[path.length-1].inv;
+  for(let i=0;i<path.length-1;i++){
+    if(ch>=path[i].ch&&ch<=path[i+1].ch){
+      const t=(ch-path[i].ch)/(path[i+1].ch-path[i].ch);
+      return path[i].inv+t*(path[i+1].inv-path[i].inv);
+    }
+  }
+  return null;
+}
+
+function drawServices(ctx,res,xp,yp,pad,W,H,minCh,maxCh,dn){
+  const path=res.path;
+  const useHLarge=(dn||300)>200;
+  const validSvcs=_services.filter(s=>s.ch!==''&&s.il!==''&&!isNaN(+s.ch)&&!isNaN(+s.il));
+  validSvcs.forEach(svc=>{
+    const ch=+svc.ch, il=+svc.il;
+    if(ch<minCh||ch>maxCh) return;
+    const cl=WSAA_SVC[svc.type]||WSAA_SVC.water_lte375;
+    const vClearM=cl.v/1000;
+    const sx=xp(ch), svy=yp(il);
+
+    const pipeInv=pipeInvAtCh(path,ch);
+    if(pipeInv===null) return;
+    const pipeCrown=pipeInv+(_params.pipeOD||0.324);
+
+    const abovePipe=il>=pipeInv;
+    const gap=abovePipe ? il-pipeCrown : pipeInv-il;
+    const conflict=gap<vClearM;
+    const colour=conflict?'#E31B23':cl.colour;
+
+    if(abovePipe){
+      const y1=yp(pipeCrown), y2=yp(pipeCrown+vClearM);
+      ctx.fillStyle=conflict?'rgba(227,27,35,0.06)':'rgba(82,127,192,0.05)';
+      ctx.fillRect(sx-24,y2,48,y1-y2);
+      ctx.beginPath();ctx.moveTo(sx-24,y2);ctx.lineTo(sx+24,y2);
+      ctx.strokeStyle=conflict?'rgba(227,27,35,0.35)':'rgba(82,127,192,0.2)';
+      ctx.lineWidth=1;ctx.setLineDash([3,2]);ctx.stroke();ctx.setLineDash([]);
+    } else {
+      const y1=yp(pipeInv-vClearM), y2=yp(pipeInv);
+      ctx.fillStyle=conflict?'rgba(227,27,35,0.06)':'rgba(82,127,192,0.05)';
+      ctx.fillRect(sx-24,y1,48,y2-y1);
+    }
+
+    ctx.beginPath();ctx.moveTo(sx-24,svy);ctx.lineTo(sx+24,svy);
+    ctx.strokeStyle=colour;ctx.lineWidth=conflict?2.5:2;ctx.stroke();
+    ctx.beginPath();ctx.arc(sx,svy,5,0,Math.PI*2);
+    ctx.fillStyle=colour;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+
+    const shortName=cl.label.split(' ')[0]+(cl.label.includes('gravity')?' grav':cl.label.includes('pressure')?' pres':'');
+    const gapMm=Math.round(gap*1000);
+    const lbl=`${shortName}  ${gapMm}mm${conflict?' ⚠':''}`;
+    ctx.font=`${conflict?'bold ':''}8px Nunito Sans,sans-serif`;
+    const tw=ctx.measureText(lbl).width;
+    const lblY=abovePipe?svy-14:svy+18;
+    ctx.fillStyle='rgba(255,255,255,0.9)';ctx.fillRect(sx-tw/2-3,lblY-9,tw+6,12);
+    ctx.fillStyle=colour;ctx.textAlign='center';ctx.fillText(lbl,sx,lblY);
+
+    if(conflict){
+      ctx.font='bold 8px Nunito Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillStyle='#E31B23';
+      ctx.fillText(`⚠ Ch${ch.toFixed(0)}`,sx,H-pad.bottom+26);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════
+function v(id){return document.getElementById(id).value;}
+function fmt(n){return Math.round(n).toLocaleString();}
+function niceStep(r){const p=Math.pow(10,Math.floor(Math.log10(r)));const f=r/p;return f<1.5?p:f<3?2*p:f<7?5*p:10*p;}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function setStatus(msg,err=false){const el=document.getElementById('runStatus');el.textContent=msg;el.style.color=err?'var(--danger)':'var(--muted)';}
+function showProgress(s){document.getElementById('progressWrap').style.display=s?'block':'none';}
+function setProgress(p){document.getElementById('progressBar').style.width=p+'%';}
+
+function switchTab(paneId,tabEl){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  tabEl.classList.add('active');
+  document.getElementById(paneId).classList.add('active');
+  if(paneId==='profile-pane'&&_results.length>0) requestAnimationFrame(()=>renderChart(_results));
+}
+
+// GLOBAL TOOLTIP
+(function(){
+  const tip = document.getElementById('tip-global');
+  let hideTimer;
+  document.addEventListener('mouseover', e => {
+    const btn = e.target.closest('.tip-btn');
+    if (!btn || !btn.dataset.tip) return;
+    clearTimeout(hideTimer);
+    const rect = btn.getBoundingClientRect();
+    tip.textContent = btn.dataset.tip;
+    tip.style.display = 'block';
+    const tipW = 240, margin = 8;
+    let left = rect.right + margin;
+    let top  = rect.top + rect.height/2 - 14;
+    if (left + tipW > window.innerWidth - 8) left = rect.left - tipW - margin;
+    const tipH = tip.offsetHeight || 80;
+    top = Math.max(8, Math.min(top, window.innerHeight - tipH - 8));
+    tip.style.left = left + 'px';
+    tip.style.top  = top + 'px';
+  });
+  document.addEventListener('mouseout', e => {
+    const btn = e.target.closest('.tip-btn');
+    if (!btn) return;
+    hideTimer = setTimeout(() => { tip.style.display = 'none'; }, 80);
+  });
+})();
+
+// ═══════════════════════════════════════════════
+// URBAN GREENFIELD TERRAIN GENERATOR
+// Gentle overall trend, long-wavelength undulation,
+// minor local features — no hills, no cliffs.
+// ═══════════════════════════════════════════════
+function loadDemo(){
+  let s = (Date.now() ^ Math.floor(Math.random()*0xffffffff))>>>0;
+  function rand(){ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/0xffffffff; }
+  function rr(lo,hi){ return lo+(hi-lo)*rand(); }
+  rand();rand();rand(); // warm up the generator
+
+  const totalLen = Math.round(rr(600,1200)/10)*10;   // typical urban main length
+  const startRL  = Math.round(rr(35,80)*100)/100;
+
+  // Gentle overall trend: −1.2% to +1.2%
+  const trendGrade = rr(-0.012, 0.012);
+
+  // Long-wavelength undulation only — wavelengths of 150m+, sub-metre amplitudes
+  const waves=[];
+  const nW=3;
+  for(let o=0;o<nW;o++){
+    waves.push({
+      wl:  rr(totalLen/1.5, totalLen/(1.5+o*1.6)),  // 150m+ wavelengths
+      amp: rr(0.25,0.9)/Math.pow(1.8,o),            // ≤ ~0.9m
+      ph:  rand()*Math.PI*2,
+    });
+  }
+
+  // One gentle crest and one gentle sag (road crests / drainage sags)
+  const crestCh=rr(totalLen*0.2,totalLen*0.45), crestAmp=rr(0.2,0.6), crestW=rr(90,180);
+  const sagCh  =rr(totalLen*0.55,totalLen*0.8), sagAmp  =rr(0.2,0.6), sagW  =rr(90,180);
+
+  const rows=[];
+  for(let ch=0;ch<=totalLen;ch+=10){
+    let rl=startRL - trendGrade*ch;
+    for(const w of waves) rl += w.amp*Math.sin(2*Math.PI*ch/w.wl + w.ph);
+    const dC=ch-crestCh; rl += crestAmp*Math.exp(-(dC*dC)/(2*crestW*crestW));
+    const dS=ch-sagCh;   rl -= sagAmp *Math.exp(-(dS*dS)/(2*sagW*sagW));
+    rl += (rand()-0.5)*0.02;   // survey noise only
+    rows.push(`${ch}, ${Math.round(rl*1000)/1000}`);
+  }
+
+  document.getElementById('profileInput').value = rows.join('\n');
+  clearConstraints();
+}
+
+// ═══════════════════════════════════════════════
+// DEMO SCENARIO — realistic surface + 2–3 service crossings
+// Service ILs are set relative to the local surface at depths
+// typical for each asset type, so clearance checks are meaningful.
+// ═══════════════════════════════════════════════
+function loadDemoScenario(){
+  loadDemo(); // realistic urban terrain into the textarea
+  const pts=parseProfile(document.getElementById('profileInput').value);
+  if(pts.length<2) return;
+  const ch0=pts[0].ch, chN=pts[pts.length-1].ch, L=chN-ch0;
+
+  let s=(Date.now()^Math.floor(Math.random()*0xffffffff))>>>0;
+  function rand(){ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/0xffffffff; }
+  function rr(lo,hi){ return lo+(hi-lo)*rand(); }
+  rand();rand();
+
+  // typical burial depth to invert below local surface, per asset type
+  const catalogue=[
+    {type:'telecom',        depth:[0.60,0.90]},
+    {type:'gas',            depth:[0.75,1.10]},
+    {type:'electricity',    depth:[0.70,1.00]},
+    {type:'stormwater',     depth:[1.10,2.00]},
+    {type:'sewer_gravity',  depth:[1.60,2.80]},
+    {type:'water_lte375',   depth:[0.90,1.30]},
+  ];
+
+  const n=2+Math.round(rand());              // 2 or 3 crossings
+  // spread chainages across thirds of the alignment so they don't bunch up
+  const slots=[[0.15,0.38],[0.42,0.65],[0.68,0.90]];
+  const picks=[];
+  const used=new Set();
+  for(let i=0;i<n;i++){
+    let ci; do{ci=Math.floor(rand()*catalogue.length);}while(used.has(ci));
+    used.add(ci);
+    const cat=catalogue[ci];
+    const slot=slots[i];
+    const ch=Math.round(rr(ch0+L*slot[0], ch0+L*slot[1]));
+    const surf=interpRL(pts,ch);
+    const il=Math.round((surf-rr(cat.depth[0],cat.depth[1]))*1000)/1000;
+    picks.push({ch:String(ch), il:String(il), type:cat.type});
+  }
+  _services=picks;
+  renderServiceRows();
+  document.getElementById('autoFillStatus').textContent='';
+  setStatus(`✓ Demo loaded — ${pts.length} survey points, ${n} service crossings. Click Generate.`);
+  if(_results.length>0) _results=[]; // stale results no longer match the new profile
+}
+
+function clearProfile(){document.getElementById('profileInput').value='';}
+window.addEventListener('resize',()=>{if(_results.length>0)renderChart(_results);});
+</script>
+</body>
+</html>
